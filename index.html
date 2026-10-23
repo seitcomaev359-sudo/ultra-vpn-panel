@@ -4,90 +4,833 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#030712">
+<meta name="color-scheme" content="dark">
 <title>ULTRA VPN PANEL</title>
 <style>
 :root{--bg:#030712;--card:#071426;--line:#18385d;--text:#f3f6ff;--muted:#91a6c7;--purple:#8b35ff;--blue:#087bff;--green:#00f0a0;--pink:#ff268c;--orange:#ff9c28}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#17205a 0,transparent 48%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
-button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #55aaff;outline-offset:2px}
-header{padding:22px 16px 18px;border-bottom:1px solid #17294a;background:linear-gradient(115deg,#071124dd,#030712ee);position:relative;overflow:hidden}header:after{content:"";position:absolute;width:220px;height:2px;background:linear-gradient(90deg,transparent,#9b2dff,transparent);transform:rotate(-25deg);right:0;top:25px;box-shadow:0 0 22px #7d2bff}
-.brand{display:flex;gap:12px;align-items:center;position:relative;z-index:1}.logo{width:54px;height:54px;border-radius:17px;background:linear-gradient(145deg,#173dff,#a21aff);display:grid;place-items:center;font-size:28px;box-shadow:0 0 24px #6929ff66}.brand h1{font-size:20px;margin:0;letter-spacing:1px}.brand h1 span{color:#b67aff}.brand p{margin:5px 0 0;color:#9eb1d3;font-size:12px}.top-actions{margin-left:auto;display:flex;gap:7px}.iconbtn,.smallbtn{border:1px solid #354a75;background:#09152a;border-radius:12px;padding:10px}.wrap{max-width:1050px;margin:auto;padding:14px}
-.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.metric{border:1px solid var(--line);border-radius:16px;background:linear-gradient(140deg,#081b30,#040b18);padding:13px;min-height:90px}.metric .label{font-size:12px;color:var(--muted)}.metric strong{display:block;font-size:17px;margin-top:7px}.green{color:var(--green)}.blue{color:#28b8ff}.purple{color:#bc70ff}.orange{color:#ffb449}
-.hero{margin-top:13px;padding:16px;border:1px solid #1354a1;border-radius:20px;background:radial-gradient(ellipse at 10% 50%,#06314c 0,transparent 50%),linear-gradient(110deg,#07162b,#060a19);display:flex;align-items:center;gap:14px}.power{width:76px;height:76px;flex:none;border-radius:50%;border:3px solid var(--green);background:#041b22;color:#4cffc1;font-size:30px;box-shadow:0 0 0 7px #00efa01a,0 0 28px #00efa044}.hero h2{font-size:16px;margin:0 0 6px}.hero p{font-size:12px;color:#a7b8d5;margin:0;line-height:1.5}.hero .status{flex:1}.pill{display:inline-block;border:1px solid #24466f;border-radius:999px;padding:5px 9px;font-size:11px;color:#c6d7f7;margin-top:8px}
-.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}.quick button{min-height:86px;text-align:left;border-radius:16px;padding:13px;border:1px solid var(--line);background:#071326}.quick b{display:block;font-size:14px;margin-top:8px}.quick span{font-size:11px;color:var(--muted);display:block;margin-top:4px}.quick .q1{border-color:#7938dd}.quick .q2{border-color:#007de7}.quick .q3{border-color:#009c6b}.quick .q4{border-color:#c72a75}
-.section{margin-top:16px;border:1px solid #123052;border-radius:19px;overflow:hidden;background:#030d1b}.tabs{display:flex;overflow:auto;border-bottom:1px solid #1c3554}.tabs button{flex:1;min-width:83px;padding:13px 8px;background:transparent;border:0;color:#a5b7d5;font-size:12px}.tabs button.active{color:white;background:linear-gradient(120deg,#30107a,#0d2e67);box-shadow:inset 0 -3px #8e31ff}.toolbar{padding:11px;display:grid;grid-template-columns:1fr;gap:8px}.field{width:100%;border:1px solid #234263;border-radius:12px;background:#04101f;color:#eff5ff;padding:12px;min-width:0}.field::placeholder{color:#7187a9}textarea.field{min-height:120px;resize:vertical}.filters{display:flex;gap:8px}.filters select{flex:1;min-width:0}.server-list{padding:0 10px 12px;display:grid;gap:9px}.server{border:1px solid #243d69;border-radius:15px;background:linear-gradient(105deg,#071426,#040c19);padding:12px;display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:center}.flag{font-size:26px}.server h3{font-size:13px;margin:0 0 5px}.meta{font-size:10px;color:#a9bad6;line-height:1.6;overflow-wrap:anywhere}.tag{display:inline-block;border-radius:6px;background:#142b50;padding:2px 5px;margin-right:4px;color:#cbdcff}.server-actions{display:flex;align-items:center;gap:6px}.fav{background:transparent;border:0;color:#a6b9d9;font-size:20px;padding:4px}.primary{border:0;border-radius:11px;padding:10px 12px;background:linear-gradient(105deg,#6921f4,#007bff);font-size:11px;white-space:nowrap;box-shadow:0 5px 17px #203cff33}.danger{border:1px solid #71324c;background:#241020;color:#ff91b9;border-radius:10px;padding:9px}.muted{color:var(--muted)}.empty{padding:28px 15px;text-align:center;color:var(--muted);font-size:13px}.panel{padding:14px}.panel h2{font-size:17px;margin:0 0 7px}.panel p{font-size:12px;color:var(--muted);line-height:1.6}.formgrid{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.subitem,.historyitem{border:1px solid #213b5e;border-radius:13px;padding:12px;margin-top:9px;background:#071426;overflow-wrap:anywhere}.subitem b{font-size:13px}.subitem p{margin:6px 0}.notice{font-size:11px!important;border-left:3px solid #ffb449;padding-left:10px}.bottom{position:fixed;bottom:0;left:0;right:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:#030712ed;border-top:1px solid #1a2b49;backdrop-filter:blur(18px);z-index:10}.bottom button{background:transparent;border:0;color:#91a6c7;font-size:10px;display:grid;gap:4px;justify-items:center;min-width:45px}.bottom button span{font-size:19px}.bottom button.active{color:#bc70ff}.bottom .addnav span{background:linear-gradient(130deg,#7b25ff,#007bff);color:white;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:26px;box-shadow:0 0 18px #692aff77}.hidden{display:none!important}.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#102540;border:1px solid #3471a7;padding:11px 15px;border-radius:12px;z-index:50;box-shadow:0 8px 28px #0008;max-width:90%;font-size:13px}.linkrow{display:flex;gap:8px}.linkrow input{flex:1;min-width:0}
-@media(min-width:700px){.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}.quick{grid-template-columns:repeat(4,minmax(0,1fr))}.toolbar{grid-template-columns:1fr auto}.server{grid-template-columns:42px minmax(0,1fr) auto}.hero{padding:20px}.hero .status{margin-left:10px}}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -20%,#17205a 0,transparent 48%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
+button,input,select,textarea{font:inherit}
+input,textarea,select{font-size:16px}
+button{cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #55aaff;outline-offset:2px}
+header{padding:22px 16px 18px;border-bottom:1px solid #17294a;background:linear-gradient(115deg,#071124dd,#030712ee);position:relative;overflow:hidden}
+header:after{content:"";position:absolute;width:220px;height:2px;background:linear-gradient(90deg,transparent,#9b2dff,transparent);transform:rotate(-25deg);right:0;top:25px;box-shadow:0 0 22px #7d2bff}
+.brand{display:flex;gap:12px;align-items:center;position:relative;z-index:1}
+.logo{width:54px;height:54px;border-radius:17px;background:linear-gradient(145deg,#173dff,#a21aff);display:grid;place-items:center;font-size:28px;box-shadow:0 0 24px #6929ff66}
+.brand h1{font-size:20px;margin:0;letter-spacing:1px}
+.brand h1 span{color:#b67aff}
+.brand p{margin:5px 0 0;color:#9eb1d3;font-size:12px}
+.top-actions{margin-left:auto;display:flex;gap:7px}
+.iconbtn,.smallbtn{border:1px solid #354a75;background:#09152a;border-radius:12px;padding:10px}
+.wrap{max-width:1050px;margin:auto;padding:14px}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.metric{border:1px solid var(--line);border-radius:16px;background:linear-gradient(140deg,#081b30,#040b18);padding:13px;min-height:90px}
+.metric .label{font-size:12px;color:var(--muted)}
+.metric strong{display:block;font-size:17px;margin-top:7px}
+.green{color:var(--green)}.blue{color:#28b8ff}.purple{color:#bc70ff}.orange{color:#ffb449}
+.hero{margin-top:13px;padding:16px;border:1px solid #1354a1;border-radius:20px;background:radial-gradient(ellipse at 10% 50%,#06314c 0,transparent 50%),linear-gradient(110deg,#07162b,#060a19);display:flex;align-items:center;gap:14px}
+.power{width:76px;height:76px;flex:none;border-radius:50%;border:3px solid var(--green);background:#041b22;color:#4cffc1;font-size:30px;box-shadow:0 0 0 7px #00efa01a,0 0 28px #00efa044}
+.hero h2{font-size:16px;margin:0 0 6px}
+.hero p{font-size:12px;color:#a7b8d5;margin:0;line-height:1.5}
+.hero .status{flex:1}
+.pill{display:inline-block;border:1px solid #24466f;border-radius:999px;padding:5px 9px;font-size:11px;color:#c6d7f7;margin-top:8px}
+.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}
+.quick button{min-height:86px;text-align:left;border-radius:16px;padding:13px;border:1px solid var(--line);background:#071326}
+.quick b{display:block;font-size:14px;margin-top:8px}
+.quick span{font-size:11px;color:var(--muted);display:block;margin-top:4px}
+.quick .q1{border-color:#7938dd}.quick .q2{border-color:#007de7}.quick .q3{border-color:#009c6b}.quick .q4{border-color:#c72a75}
+.section{margin-top:16px;border:1px solid #123052;border-radius:19px;overflow:hidden;background:#030d1b}
+.tabs{display:flex;overflow:auto;border-bottom:1px solid #1c3554}
+.tabs button{flex:1;min-width:83px;padding:13px 8px;background:transparent;border:0;color:#a5b7d5;font-size:12px}
+.tabs button.active{color:white;background:linear-gradient(120deg,#30107a,#0d2e67);box-shadow:inset 0 -3px #8e31ff}
+.toolbar{padding:11px;display:grid;grid-template-columns:1fr;gap:8px}
+.field{width:100%;border:1px solid #234263;border-radius:12px;background:#04101f;color:#eff5ff;padding:12px;min-width:0}
+.field::placeholder{color:#7187a9}
+textarea.field{min-height:120px;resize:vertical}
+.filters{display:flex;gap:8px}
+.filters select{flex:1;min-width:0}
+.server-list{padding:0 10px 12px;display:grid;gap:9px}
+.server{border:1px solid #243d69;border-radius:15px;background:linear-gradient(105deg,#071426,#040c19);padding:12px;display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:center}
+.flag{font-size:26px}
+.server h3{font-size:13px;margin:0 0 5px}
+.meta{font-size:10px;color:#a9bad6;line-height:1.6;overflow-wrap:anywhere}
+.tag{display:inline-block;border-radius:6px;background:#142b50;padding:2px 5px;margin-right:4px;color:#cbdcff}
+.server-actions{display:flex;align-items:center;gap:6px}
+.fav{background:transparent;border:0;color:#a6b9d9;font-size:20px;padding:4px}
+.primary{border:0;border-radius:11px;padding:10px 12px;background:linear-gradient(105deg,#6921f4,#007bff);font-size:11px;white-space:nowrap;box-shadow:0 5px 17px #203cff33}
+.danger{border:1px solid #71324c;background:#241020;color:#ff91b9;border-radius:10px;padding:9px}
+.muted{color:var(--muted)}
+.empty{padding:28px 15px;text-align:center;color:var(--muted);font-size:13px}
+.panel{padding:14px}
+.panel h2{font-size:17px;margin:0 0 7px}
+.panel p{font-size:12px;color:var(--muted);line-height:1.6}
+.formgrid{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.subitem,.historyitem{border:1px solid #213b5e;border-radius:13px;padding:12px;margin-top:9px;background:#071426;overflow-wrap:anywhere}
+.subitem b{font-size:13px}
+.subitem p{margin:6px 0}
+.notice{font-size:11px!important;border-left:3px solid #ffb449;padding-left:10px}
+.bottom{position:fixed;bottom:0;left:0;right:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:#030712ed;border-top:1px solid #1a2b49;backdrop-filter:blur(18px);z-index:10}
+.bottom button{background:transparent;border:0;color:#91a6c7;font-size:10px;display:grid;gap:4px;justify-items:center;min-width:45px}
+.bottom button span{font-size:19px}
+.bottom button.active{color:#bc70ff}
+.bottom .addnav span{background:linear-gradient(130deg,#7b25ff,#007bff);color:white;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:26px;box-shadow:0 0 18px #692aff77}
+.hidden{display:none!important}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#102540;border:1px solid #3471a7;padding:11px 15px;border-radius:12px;z-index:50;box-shadow:0 8px 28px #0008;max-width:90%;font-size:13px}
+.linkrow{display:flex;gap:8px}
+.linkrow input{flex:1;min-width:0}
+@media(min-width:700px){
+.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+.quick{grid-template-columns:repeat(4,minmax(0,1fr))}
+.toolbar{grid-template-columns:1fr auto}
+.server{grid-template-columns:42px minmax(0,1fr) auto}
+.hero{padding:20px}
+.hero .status{margin-left:10px}
+}
 </style>
 </head>
 <body>
-<header><div class="brand"><div class="logo">â¬¡</div><div><h1>ULTRA VPN <span>PANEL</span></h1><p>Ð¢Ð²Ð¾Ñ ÑÐ²Ð¾Ð±Ð¾Ð´Ð° Ð² Ð¸Ð½ÑÐµÑÐ½ÐµÑÐµ</p></div><div class="top-actions"><button class="iconbtn" id="themeBtn" aria-label="Ð¢ÐµÐ¼Ð°">â¼</button><button class="iconbtn" id="settingsBtn" aria-label="ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ¸">â</button></div></div></header>
+<header>
+<div class="brand">
+<div class="logo">⬡</div>
+<div><h1>ULTRA VPN <span>PANEL</span></h1><p>Твоя свобода в интернете</p></div>
+<div class="top-actions">
+<button class="iconbtn" id="themeBtn" aria-label="Тема">☼</button>
+<button class="iconbtn" id="settingsBtn" aria-label="Настройки">⚙</button>
+</div>
+</div>
+</header>
 <main class="wrap">
 <div class="metrics">
-<div class="metric"><div class="label">âãÐÐ¾Ð¸ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸</div><strong id="metricKeys" class="purple">0 ÐºÐ»ÑÑÐµÐ¹</strong></div>
-<div class="metric"><div class="label">âãÐÐ¾Ð´Ð¿Ð¸ÑÐºÐ¸</div><strong id="metricSubs" class="green">0 ÑÐ¾ÑÑÐ°Ð½ÐµÐ½Ð¾</strong></div>
-<div class="metric"><div class="label">â¦ãÐÑÐ¾ÑÐ¾ÐºÐ¾Ð»Ñ</div><strong id="metricProtocols" class="blue">0 ÑÐ¸Ð¿Ð¾Ð²</strong></div>
-<div class="metric"><div class="label">â¡ãÐ¡ÑÐ°ÑÑÑ</div><strong class="orange">ÐÐ¾ÐºÐ°Ð»ÑÐ½ÑÐ¹ ÑÐµÐ¶Ð¸Ð¼</strong></div>
+<div class="metric"><div class="label">◉　Мои конфигурации</div><strong id="metricKeys" class="purple">0 ключей</strong></div>
+<div class="metric"><div class="label">◎　Подписки</div><strong id="metricSubs" class="green">0 сохранено</strong></div>
+<div class="metric"><div class="label">▦　Протоколы</div><strong id="metricProtocols" class="blue">0 типов</strong></div>
+<div class="metric"><div class="label">⚡　Статус</div><strong class="orange">Локальный режим</strong></div>
 </div>
-<div class="hero"><button class="power" id="connectBtn" aria-label="ÐÑÐ¾Ð²ÐµÑÐ¸ÑÑ Ð¿Ð¾Ð´ÐºÐ»ÑÑÐµÐ½Ð¸Ðµ">â»</button><div class="status"><h2 id="connectTitle">VPN ÐÐ ÐÐÐÐÐÐ®Ð§ÐÐ</h2><p id="connectText">Ð¡Ð°Ð¹Ñ ÑÑÐ°Ð½Ð¸Ñ Ð¸ Ð¾ÑÐ³Ð°Ð½Ð¸Ð·ÑÐµÑ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸ â Ð¾Ð½ Ð½Ðµ ÑÐ¾Ð·Ð´Ð°ÑÑ VPN-ÑÑÐ½Ð½ÐµÐ»Ñ.</p><span class="pill">â ÐÐ°Ð½ÐµÐ»Ñ Ð³Ð¾ÑÐ¾Ð²Ð° Ðº ÑÐ°Ð±Ð¾ÑÐµ</span></div></div>
+<div class="hero">
+<button class="power" id="connectBtn" aria-label="Проверить подключение">⏻</button>
+<div class="status">
+<h2 id="connectTitle">VPN НЕ ПОДКЛЮЧЁН</h2>
+<p id="connectText">Сайт хранит и организует конфигурации — он не создаёт VPN-туннель.</p>
+<span class="pill">● Панель готова к работе</span>
+</div>
+</div>
 <div class="quick">
-<button class="q1" data-view="keys">ð<b>ÐÐ¾Ð¸ ÐºÐ»ÑÑÐ¸</b><span>ÐÑÐ¾ÑÐ¼Ð¾ÑÑ Ð¸ ÑÐ¿ÑÐ°Ð²Ð»ÐµÐ½Ð¸Ðµ</span></button>
-<button class="q2" data-view="add">ï¼<b>ÐÐ¾Ð±Ð°Ð²Ð¸ÑÑ</b><span>ÐÐ»ÑÑ Ð¸Ð»Ð¸ Ð»ÑÐ±ÑÑ ÑÑÑÐ»ÐºÑ</span></button>
-<button class="q3" data-view="import">ð<b>ÐÐ¼Ð¿Ð¾ÑÑ</b><span>Ð¡ÑÑÐ»ÐºÐ° Ð¸Ð»Ð¸ ÑÐ°Ð¹Ð»</span></button>
-<button class="q4" data-view="subs">â§<b>ÐÐ¾Ð´Ð¿Ð¸ÑÐºÐ¸</b><span>Ð¡Ð¾ÑÑÐ°Ð½ÑÐ½Ð½ÑÐµ Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ¸</span></button>
+<button class="q1" data-view="keys">🔑<b>Мои ключи</b><span>Просмотр и управление</span></button>
+<button class="q2" data-view="add">＋<b>Добавить</b><span>Ключ или любую ссылку</span></button>
+<button class="q3" data-view="import">🔗<b>Импорт</b><span>Ссылка или файл</span></button>
+<button class="q4" data-view="subs">♧<b>Подписки</b><span>Сохранённые источники</span></button>
 </div>
 <section class="section">
-<div class="tabs" id="tabs"><button class="active" data-view="keys">â Ð¡ÐµÑÐ²ÐµÑÑ</button><button data-view="subs">â§ ÐÐ¾Ð´Ð¿Ð¸ÑÐºÐ¸</button><button data-view="favorites">â ÐÐ·Ð±ÑÐ°Ð½Ð½Ð¾Ðµ</button><button data-view="history">â· ÐÑÑÐ¾ÑÐ¸Ñ</button></div>
+<div class="tabs" id="tabs">
+<button class="active" data-view="keys">◉ Серверы</button>
+<button data-view="subs">♧ Подписки</button>
+<button data-view="favorites">☆ Избранное</button>
+<button data-view="history">◷ История</button>
+</div>
 <div id="keysView">
-<div class="toolbar"><input id="search" class="field" placeholder="ÐÐ¾Ð¸ÑÐº Ð¿Ð¾ ÑÑÑÐ°Ð½Ðµ, Ð¿ÑÐ¾ÑÐ¾ÐºÐ¾Ð»Ñ, Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñâ¦"><div class="filters"><select id="protocolFilter" class="field"><option value="">ÐÑÐµ Ð¿ÑÐ¾ÑÐ¾ÐºÐ¾Ð»Ñ</option><option>VLESS</option><option>VMess</option><option>Trojan</option><option>Shadowsocks</option><option>WireGuard</option><option>AmneziaWG</option><option>Hysteria2</option><option>TUIC</option><option>ÐÑÑÐ³Ð°Ñ ÑÑÑÐ»ÐºÐ°</option></select><select id="sort" class="field"><option value="name">ÐÐ¾ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ</option><option value="country">ÐÐ¾ ÑÑÑÐ°Ð½Ðµ</option><option value="protocol">ÐÐ¾ Ð¿ÑÐ¾ÑÐ¾ÐºÐ¾Ð»Ñ</option></select></div></div>
+<div class="toolbar">
+<input id="search" class="field" placeholder="Поиск по стране, протоколу, названию…">
+<div class="filters">
+<select id="protocolFilter" class="field">
+<option value="">Все протоколы</option><option>VLESS</option><option>VMess</option><option>Trojan</option><option>Shadowsocks</option><option>WireGuard</option><option>AmneziaWG</option><option>Hysteria2</option><option>TUIC</option><option>Другая ссылка</option>
+</select>
+<select id="sort" class="field">
+<option value="name">По названию</option><option value="country">По стране</option><option value="protocol">По протоколу</option>
+</select>
+</div>
+</div>
 <div class="server-list" id="serverList"></div>
 </div>
-<div id="subsView" class="panel hidden"><h2>ÐÐ¾Ð´Ð¿Ð¸ÑÐºÐ¸ Ð¸ Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ¸</h2><p>Ð¡Ð¾ÑÑÐ°Ð½ÑÐ¹ ÑÑÑÐ»ÐºÐ¸ Ð½Ð° Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÐ¸ Ð¸ Ð¾ÑÐºÑÑÐ²Ð°Ð¹ Ð¸Ñ. ÐÐ²ÑÐ¾Ð¼Ð°ÑÐ¸ÑÐµÑÐºÐ°Ñ Ð·Ð°Ð³ÑÑÐ·ÐºÐ° ÑÐ¾Ð´ÐµÑÐ¶Ð¸Ð¼Ð¾Ð³Ð¾ Ð·Ð°Ð²Ð¸ÑÐ¸Ñ Ð¾Ñ CORS Ð¸ ÑÐ¾ÑÐ¼Ð°ÑÐ° Ð¸ÑÑÐ¾ÑÐ½Ð¸ÐºÐ°.</p><div class="formgrid"><input id="subName" class="field" placeholder="ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÐ¸"><input id="subUrl" class="field" type="url" placeholder="ÐÑÑÐ°Ð²Ñ Ð»ÑÐ±ÑÑ ÑÑÑÐ»ÐºÑ https://â¦"><button id="saveSub" class="primary">ï¼ Ð¡Ð¾ÑÑÐ°Ð½Ð¸ÑÑ ÑÑÑÐ»ÐºÑ</button></div><div id="subList"></div></div>
-<div id="favoritesView" class="panel hidden"><h2>ÐÐ·Ð±ÑÐ°Ð½Ð½Ð¾Ðµ</h2><div id="favList"></div></div>
-<div id="historyView" class="panel hidden"><h2>ÐÐµÐ´Ð°Ð²Ð½Ð¸Ðµ Ð´ÐµÐ¹ÑÑÐ²Ð¸Ñ</h2><div id="historyList"></div></div>
-<div id="addView" class="panel hidden"><h2>ÐÐ¾Ð±Ð°Ð²Ð¸ÑÑ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ñ</h2><p>ÐÑÑÐ°Ð²Ñ ÐºÐ»ÑÑ VPN, ÑÑÑÐ»ÐºÑ Ð½Ð° Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÑ Ð¸Ð»Ð¸ Ð¾Ð±ÑÑÐ½ÑÑ Ð²ÐµÐ±-ÑÑÑÐ»ÐºÑ. ÐÐ»Ñ VPN-ÐºÐ»ÑÑÐµÐ¹ Ð¿Ð°Ð½ÐµÐ»Ñ Ð¿Ð¾Ð¿ÑÐ¾Ð±ÑÐµÑ Ð¾Ð¿ÑÐµÐ´ÐµÐ»Ð¸ÑÑ Ð¿ÑÐ¾ÑÐ¾ÐºÐ¾Ð».</p><div class="formgrid"><input id="cfgName" class="field" placeholder="ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ (Ð½Ð°Ð¿ÑÐ¸Ð¼ÐµÑ, Germany 01)"><div class="row"><select id="cfgProtocol" class="field"><option value="auto">ÐÐ²ÑÐ¾Ð¾Ð¿ÑÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ðµ Ð¿ÑÐ¾ÑÐ¾ÐºÐ¾Ð»Ð°</option><option>VLESS</option><option>VMess</option><option>Trojan</option><option>Shadowsocks</option><option>WireGuard</option><option>AmneziaWG</option><option>Hysteria2</option><option>TUIC</option><option>ÐÑÑÐ³Ð°Ñ ÑÑÑÐ»ÐºÐ°</option></select><input id="cfgCountry" class="field" placeholder="Ð¡ÑÑÐ°Ð½Ð° (Ð½ÐµÐ¾Ð±ÑÐ·Ð°ÑÐµÐ»ÑÐ½Ð¾)"></div><textarea id="cfgContent" class="field" placeholder="vless://â¦ Ð¸Ð»Ð¸ https://â¦"></textarea><div class="btnrow"><button id="saveCfg" class="primary">Ð¡Ð¾ÑÑÐ°Ð½Ð¸ÑÑ</button><button id="detectBtn" class="smallbtn">ÐÐ¿ÑÐµÐ´ÐµÐ»Ð¸ÑÑ Ð¿ÑÐ¾ÑÐ¾ÐºÐ¾Ð»</button><button id="clearCfg" class="smallbtn">ÐÑÐ¸ÑÑÐ¸ÑÑ</button></div><p class="notice">Ð¡ÑÑÐ»ÐºÐ¸ Ð¸ ÐºÐ»ÑÑÐ¸ ÑÐ¾ÑÑÐ°Ð½ÑÑÑÑÑ ÑÐ¾Ð»ÑÐºÐ¾ Ð² ÑÑÐ¾Ð¼ Ð±ÑÐ°ÑÐ·ÐµÑÐµ Ð½Ð° ÑÑÑÑÐ¾Ð¹ÑÑÐ²Ðµ. ÐÐµ Ð²ÑÑÐ°Ð²Ð»ÑÐ¹ ÑÐµÐºÑÐµÑÐ½ÑÐµ Ð´Ð°Ð½Ð½ÑÐµ, ÐµÑÐ»Ð¸ ÑÑÑÑÐ¾Ð¹ÑÑÐ²Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑÐ·ÑÑÑ Ð´ÑÑÐ³Ð¸Ðµ Ð»ÑÐ´Ð¸.</p></div>
-<div id="importView" class="panel hidden"><h2>ÐÐ¼Ð¿Ð¾ÑÑ ÑÑÑÐ»ÐºÐ¸ Ð¸Ð»Ð¸ ÑÐ°Ð¹Ð»Ð°</h2><p>ÐÑÑÐ°Ð²Ñ URL Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÐ¸ Ð¸Ð»Ð¸ Ð²ÑÐ±ÐµÑÐ¸ ÑÐµÐºÑÑÐ¾Ð²ÑÐ¹ ÑÐ°Ð¹Ð». ÐÑÐ»Ð¸ Ð¸ÑÑÐ¾ÑÐ½Ð¸Ðº ÑÐ°Ð·ÑÐµÑÐ°ÐµÑ Ð±ÑÐ°ÑÐ·ÐµÑÐ½ÑÐ¹ Ð´Ð¾ÑÑÑÐ¿, Ð¿Ð°Ð½ÐµÐ»Ñ Ð¿Ð¾Ð¿ÑÐ¾Ð±ÑÐµÑ ÑÐºÐ°ÑÐ°ÑÑ Ð¸ Ð¸Ð·Ð²Ð»ÐµÑÑ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸. ÐÐ½Ð°ÑÐµ Ð¾ÑÐºÑÐ¾Ð¹ ÑÑÑÐ»ÐºÑ Ð¾ÑÐ´ÐµÐ»ÑÐ½Ð¾ Ð¸Ð»Ð¸ Ð¸Ð¼Ð¿Ð¾ÑÑÐ¸ÑÑÐ¹ ÑÐ°Ð¹Ð».</p><div class="formgrid"><input id="importUrl" class="field" type="url" placeholder="https://example.com/subscription"><div class="btnrow"><button id="fetchBtn" class="primary">ÐÐ°Ð³ÑÑÐ·Ð¸ÑÑ Ð¿Ð¾ ÑÑÑÐ»ÐºÐµ</button><button id="openUrlBtn" class="smallbtn">ÐÑÐºÑÑÑÑ ÑÑÑÐ»ÐºÑ</button></div><label class="smallbtn">ÐÑÐ±ÑÐ°ÑÑ ÑÐ°Ð¹Ð» .txt / .conf / .yaml / .json <input id="fileInput" type="file" accept=".txt,.conf,.yaml,.yml,.json,.log,text/*,application/json" hidden></label><textarea id="importText" class="field" placeholder="ÐÐ»Ð¸ Ð²ÑÑÐ°Ð²Ñ ÑÑÐ´Ð° ÑÐ¾Ð´ÐµÑÐ¶Ð¸Ð¼Ð¾Ðµ Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÐ¸ / ÑÐ°Ð¹Ð»Ð°"></textarea><div class="btnrow"><button id="parseBtn" class="primary">ÐÐ°Ð¹ÑÐ¸ Ð¸ Ð¸Ð¼Ð¿Ð¾ÑÑÐ¸ÑÐ¾Ð²Ð°ÑÑ ÐºÐ»ÑÑÐ¸</button><button id="downloadBackup" class="smallbtn">Ð­ÐºÑÐ¿Ð¾ÑÑ JSON</button><label class="smallbtn">ÐÐ¼Ð¿Ð¾ÑÑ JSON <input id="backupInput" type="file" accept=".json,application/json" hidden></label></div><div id="importResult" class="muted"></div></div></div>
-<div id="settingsView" class="panel hidden"><h2>ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ¸ Ð¿Ð°Ð½ÐµÐ»Ð¸</h2><p>ÐÐ¾ÐºÐ°Ð»ÑÐ½Ð°Ñ Ð¿Ð°Ð½ÐµÐ»Ñ Ð±ÐµÐ· ÑÑÑÑÐ½Ð¾Ð¹ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð¸ Ð±ÐµÐ· ÑÐ¾Ð±ÑÑÐ²ÐµÐ½Ð½Ð¾Ð³Ð¾ ÑÐµÑÐ²ÐµÑÐ°.</p><div class="btnrow"><button id="exportBtn" class="primary">Ð¡ÐºÐ°ÑÐ°ÑÑ ÑÐµÐ·ÐµÑÐ²Ð½ÑÑ ÐºÐ¾Ð¿Ð¸Ñ</button><button id="clearAllBtn" class="danger">Ð£Ð´Ð°Ð»Ð¸ÑÑ Ð²ÑÐµ Ð´Ð°Ð½Ð½ÑÐµ</button></div><p class="notice">Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð½ÐµÐ¾Ð±ÑÐ°ÑÐ¸Ð¼Ð¾, ÑÐ½Ð°ÑÐ°Ð»Ð° ÑÐ´ÐµÐ»Ð°Ð¹ ÑÐµÐ·ÐµÑÐ²Ð½ÑÑ ÐºÐ¾Ð¿Ð¸Ñ. ÐÐ°Ð½Ð½ÑÐµ Ð½Ðµ ÑÐ¸Ð½ÑÑÐ¾Ð½Ð¸Ð·Ð¸ÑÑÑÑÑÑ Ð¼ÐµÐ¶Ð´Ñ ÑÑÑÑÐ¾Ð¹ÑÑÐ²Ð°Ð¼Ð¸ Ð°Ð²ÑÐ¾Ð¼Ð°ÑÐ¸ÑÐµÑÐºÐ¸.</p></div>
+<div id="subsView" class="panel hidden">
+<h2>Подписки и источники</h2>
+<p>Сохраняй ссылки на подписки и открывай их. Автоматическая загрузка содержимого зависит от CORS и формата источника.</p>
+<div class="formgrid">
+<input id="subName" class="field" placeholder="Название подписки">
+<input id="subUrl" class="field" type="url" placeholder="Вставь любую ссылку https://…">
+<button id="saveSub" class="primary">＋ Сохранить ссылку</button>
+</div>
+<div id="subList"></div>
+</div>
+<div id="favoritesView" class="panel hidden"><h2>Избранное</h2><div id="favList"></div></div>
+<div id="historyView" class="panel hidden"><h2>Недавние действия</h2><div id="historyList"></div></div>
+<div id="addView" class="panel hidden">
+<h2>Добавить конфигурацию</h2>
+<p>Вставь ключ VPN, ссылку на подписку или обычную веб-ссылку. Для VPN-ключей панель попробует определить протокол.</p>
+<div class="formgrid">
+<input id="cfgName" class="field" placeholder="Название (например, Germany 01)">
+<div class="row">
+<select id="cfgProtocol" class="field">
+<option value="auto">Автоопределение протокола</option><option>VLESS</option><option>VMess</option><option>Trojan</option><option>Shadowsocks</option><option>WireGuard</option><option>AmneziaWG</option><option>Hysteria2</option><option>TUIC</option><option>Другая ссылка</option>
+</select>
+<input id="cfgCountry" class="field" placeholder="Страна (необязательно)">
+</div>
+<textarea id="cfgContent" class="field" placeholder="vless://… или https://…"></textarea>
+<div class="btnrow">
+<button id="saveCfg" class="primary">Сохранить</button>
+<button id="detectBtn" class="smallbtn">Определить протокол</button>
+<button id="clearCfg" class="smallbtn">Очистить</button>
+</div>
+<p class="notice">Ссылки и ключи сохраняются только в этом браузере на устройстве. Не вставляй секретные данные, если устройство используют другие люди.</p>
+</div>
+</div>
+<div id="importView" class="panel hidden">
+<h2>Импорт ссылки или файла</h2>
+<p>Вставь URL подписки или выбери текстовый файл. Если источник разрешает браузерный доступ, панель попробует скачать и извлечь конфигурации. Иначе открой ссылку отдельно или импортируй файл.</p>
+<div class="formgrid">
+<input id="importUrl" class="field" type="url" placeholder="https://example.com/subscription">
+<div class="btnrow">
+<button id="fetchBtn" class="primary">Загрузить по ссылке</button>
+<button id="openUrlBtn" class="smallbtn">Открыть ссылку</button>
+</div>
+<label class="smallbtn">Выбрать файл .txt / .conf / .yaml / .json <input id="fileInput" type="file" accept=".txt,.conf,.yaml,.yml,.json,.log,text/*,application/json" hidden></label>
+<textarea id="importText" class="field" placeholder="Или вставь сюда содержимое подписки / файла"></textarea>
+<div class="btnrow">
+<button id="parseBtn" class="primary">Найти и импортировать ключи</button>
+<button id="downloadBackup" class="smallbtn">Экспорт JSON</button>
+<label class="smallbtn">Импорт JSON <input id="backupInput" type="file" accept=".json,application/json" hidden></label>
+</div>
+<div id="importResult" class="muted"></div>
+</div>
+</div>
+<div id="settingsView" class="panel hidden">
+<h2>Настройки панели</h2>
+<p>Локальная панель без учётной записи и без собственного сервера.</p>
+<div class="btnrow">
+<button id="exportBtn" class="primary">Скачать резервную копию</button>
+<button id="clearAllBtn" class="danger">Удалить все данные</button>
+</div>
+<p class="notice">Удаление необратимо, сначала сделай резервную копию. Данные не синхронизируются между устройствами автоматически.</p>
+</div>
 </section>
-<div class="section panel"><h2>ÐÐ¾Ð´Ð´ÐµÑÐ¶ÐºÐ° ÑÑÑÐ»Ð¾Ðº</h2><p>ÐÐ°Ð½ÐµÐ»Ñ Ð¼Ð¾Ð¶ÐµÑ ÑÑÐ°Ð½Ð¸ÑÑ Ð¾Ð±ÑÑÐ½ÑÐµ URL Ð¸ Ð¸Ð·Ð²ÐµÑÑÐ½ÑÐµ ÑÑÐµÐ¼Ñ: VLESS, VMess, Trojan, Shadowsocks, WireGuard, AmneziaWG, Hysteria2 Ð¸ TUIC. ÐÐ¾Ð´Ð´ÐµÑÐ¶ÐºÐ° ÑÐ¾ÑÐ¼Ð°ÑÐ° Ð½Ðµ Ð¾Ð·Ð½Ð°ÑÐ°ÐµÑ, ÑÑÐ¾ ÑÐ°Ð¹Ñ ÑÐ¼ÐµÐµÑ Ð¿Ð¾Ð´ÐºÐ»ÑÑÐ°ÑÑÑÑ Ðº ÑÐµÑÐ²ÐµÑÑ.</p><button class="smallbtn" id="goImport">ï¼ ÐÐ¼Ð¿Ð¾ÑÑ Ð»ÑÐ±Ð¾Ð¹ ÑÑÑÐ»ÐºÐ¸</button></div>
+<div class="section panel">
+<h2>Поддержка ссылок</h2>
+<p>Панель может хранить обычные URL и известные схемы: VLESS, VMess, Trojan, Shadowsocks, WireGuard, AmneziaWG, Hysteria2 и TUIC. Поддержка формата не означает, что сайт умеет подключаться к серверу.</p>
+<button class="smallbtn" id="goImport">＋ Импорт любой ссылки</button>
+</div>
 </main>
-<nav class="bottom"><button class="active" data-view="keys"><span>â</span>ÐÐ»Ð°Ð²Ð½Ð°Ñ</button><button data-view="keys"><span>â</span>Ð¡ÐµÑÐ²ÐµÑÑ</button><button class="addnav" data-view="add"><span>ï¼</span>ÐÐ¾Ð±Ð°Ð²Ð¸ÑÑ</button><button data-view="subs"><span>â§</span>ÐÐ¾Ð´Ð¿Ð¸ÑÐºÐ¸</button><button data-view="settings"><span>â¢â¢â¢</span>ÐÑÑ</button></nav>
+<nav class="bottom">
+<button class="active" data-view="keys"><span>⌂</span>Главная</button>
+<button data-view="keys"><span>◎</span>Серверы</button>
+<button class="addnav" data-view="add"><span>＋</span>Добавить</button>
+<button data-view="subs"><span>♧</span>Подписки</button>
+<button data-view="settings"><span>•••</span>Ещё</button>
+</nav>
 <div id="toast" class="toast hidden" role="status"></div>
 <script>
-const $=id=>document.getElementById(id);
-const DBKEY='ultra-vpn-panel-v2';
-let state={configs:[],subs:[],history:[]};
-try{const old=JSON.parse(localStorage.getItem(DBKEY)||'null');if(old)state={...state,...old};}catch(e){}
-const protocolNames=['VLESS','VMess','Trojan','Shadowsocks','WireGuard','AmneziaWG','Hysteria2','TUIC'];
-function persist(){try{localStorage.setItem(DBKEY,JSON.stringify(state));}catch(e){toast('ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾ÑÑÐ°Ð½Ð¸ÑÑ: Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾, Ð¿ÐµÑÐµÐ¿Ð¾Ð»Ð½ÐµÐ½Ð¾ ÑÑÐ°Ð½Ð¸Ð»Ð¸ÑÐµ. Ð­ÐºÑÐ¿Ð¾ÑÑÐ¸ÑÑÐ¹ ÑÐµÐ·ÐµÑÐ²Ð½ÑÑ ÐºÐ¾Ð¿Ð¸Ñ.');}}
-function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').classList.add('hidden'),3200);}
-function escapeHtml(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function detectProtocol(s){s=String(s||'').trim();if(/^vless:\/\//i.test(s))return'VLESS';if(/^vmess:\/\//i.test(s))return'VMess';if(/^trojan:\/\//i.test(s))return'Trojan';if(/^ss:\/\//i.test(s))return'Shadowsocks';if(/^wireguard:\/\//i.test(s)||/^\[Interface\]/im.test(s))return'WireGuard';if(/amneziawg|^awg:\/\//i.test(s))return'AmneziaWG';if(/^hysteria2:\/\//i.test(s)||/^hy2:\/\//i.test(s))return'Hysteria2';if(/^tuic:\/\//i.test(s))return'TUIC';if(/^https?:\/\//i.test(s))return'ÐÑÑÐ³Ð°Ñ ÑÑÑÐ»ÐºÐ°';return'ÐÑÑÐ³Ð°Ñ ÑÑÑÐ»ÐºÐ°';}
-function addHistory(text){state.history.unshift({text,at:new Date().toLocaleString('ru-RU')});state.history=state.history.slice(0,30);}
-function configFrom(line,baseName='ÐÐ¼Ð¿Ð¾ÑÑ'){let content=line.trim();if(!content)return null;let proto=detectProtocol(content);if(proto==='ÐÑÑÐ³Ð°Ñ ÑÑÑÐ»ÐºÐ°'&&!/^https?:\/\//i.test(content)&&!content.startsWith('[')&&!content.includes('://'))return null;return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),name:baseName+' '+(state.configs.length+1),protocol:proto,country:'',content,favorite:false,created:Date.now()};}
-function render(){const q=$('search').value.trim().toLowerCase(),pf=$('protocolFilter').value,sort=$('sort').value;let list=state.configs.filter(c=>(!q||[c.name,c.protocol,c.country,c.content].some(x=>String(x||'').toLowerCase().includes(q)))&&(!pf||c.protocol===pf));if(sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name));else list.sort((a,b)=>String(a[sort]||'').localeCompare(String(b[sort]||'')));$('metricKeys').textContent=state.configs.length+' ÐºÐ»ÑÑÐµÐ¹';$('metricSubs').textContent=state.subs.length+' ÑÐ¾ÑÑÐ°Ð½ÐµÐ½Ð¾';$('metricProtocols').textContent=new Set(state.configs.map(c=>c.protocol)).size+' ÑÐ¸Ð¿Ð¾Ð²';$('serverList').innerHTML=list.length?list.map(c=>`<article class="server"><div class="flag">${flagFor(c.country)}</div><div><h3>${escapeHtml(c.name)}</h3><div class="meta"><span class="tag">${escapeHtml(c.protocol)}</span> ${escapeHtml(c.country||'Ð¡ÑÑÐ°Ð½Ð° Ð½Ðµ ÑÐºÐ°Ð·Ð°Ð½Ð°')}<br>${escapeHtml(shortContent(c.content))}</div><div class="btnrow"><button class="smallbtn" data-action="copy" data-id="${c.id}">ÐÐ¾Ð¿Ð¸ÑÐ¾Ð²Ð°ÑÑ</button><button class="smallbtn" data-action="show" data-id="${c.id}">ÐÐ¾ÐºÐ°Ð·Ð°ÑÑ</button><button class="smallbtn" data-action="rename" data-id="${c.id}">ÐÐ·Ð¼ÐµÐ½Ð¸ÑÑ</button><button class="danger" data-action="delete" data-id="${c.id}">Ð£Ð´Ð°Ð»Ð¸ÑÑ</button></div></div><button class="fav" data-action="fav" data-id="${c.id}" aria-label="ÐÐ·Ð±ÑÐ°Ð½Ð½Ð¾Ðµ">${c.favorite?'â':'â'}</button></article>`).join(''):'<div class="empty">ÐÐ¾ÐºÐ° Ð½ÐµÑ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¹.<br>ÐÐ°Ð¶Ð¼Ð¸ Â«ÐÐ¾Ð±Ð°Ð²Ð¸ÑÑÂ» Ð¸Ð»Ð¸ Ð¸Ð¼Ð¿Ð¾ÑÑÐ¸ÑÑÐ¹ ÑÑÑÐ»ÐºÑ.</div>';
-$('subList').innerHTML=state.subs.length?state.subs.map(s=>`<div class="subitem"><b>${escapeHtml(s.name)}</b><p class="meta">${escapeHtml(s.url)}</p><div class="btnrow"><button class="smallbtn" data-subaction="open" data-id="${s.id}">ÐÑÐºÑÑÑÑ</button><button class="smallbtn" data-subaction="copy" data-id="${s.id}">ÐÐ¾Ð¿Ð¸ÑÐ¾Ð²Ð°ÑÑ</button><button class="smallbtn" data-subaction="fetch" data-id="${s.id}">ÐÐ¾Ð¿ÑÐ¾Ð±Ð¾Ð²Ð°ÑÑ Ð¸Ð¼Ð¿Ð¾ÑÑ</button><button class="danger" data-subaction="delete" data-id="${s.id}">Ð£Ð´Ð°Ð»Ð¸ÑÑ</button></div></div>`).join(''):'<div class="empty">ÐÐµÑ ÑÐ¾ÑÑÐ°Ð½ÑÐ½Ð½ÑÑ Ð¿Ð¾Ð´Ð¿Ð¸ÑÐ¾Ðº.</div>';
-$('favList').innerHTML=state.configs.filter(c=>c.favorite).map(c=>`<div class="subitem"><b>${escapeHtml(c.name)}</b><p>${escapeHtml(c.protocol)} Â· ${escapeHtml(c.country)}</p><button class="smallbtn" data-action="copy" data-id="${c.id}">ÐÐ¾Ð¿Ð¸ÑÐ¾Ð²Ð°ÑÑ</button></div>`).join('')||'<div class="empty">ÐÐ¾Ð±Ð°Ð²Ñ ÑÐµÑÐ²ÐµÑ Ð² Ð¸Ð·Ð±ÑÐ°Ð½Ð½Ð¾Ðµ ÐºÐ½Ð¾Ð¿ÐºÐ¾Ð¹ â.</div>';
-$('historyList').innerHTML=state.history.map(h=>`<div class="historyitem"><b>${escapeHtml(h.text)}</b><p class="meta">${escapeHtml(h.at)}</p></div>`).join('')||'<div class="empty">ÐÐµÐ¹ÑÑÐ²Ð¸Ð¹ Ð¿Ð¾ÐºÐ° Ð½ÐµÑ.</div>';
+const $ = id => document.getElementById(id);
+
+const STORAGE_KEY = 'ultra_vpn_panel_v1';
+
+let state = {
+  configs: [],
+  subs: [],
+  history: []
+};
+
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    state.configs = Array.isArray(parsed.configs) ? parsed.configs : [];
+    state.subs = Array.isArray(parsed.subs) ? parsed.subs : [];
+    state.history = Array.isArray(parsed.history) ? parsed.history : [];
+  }
+} catch (e) {}
+
+function persist() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {
+    toast('Не удалось сохранить данные в браузере');
+  }
 }
-function flagFor(country){const c=String(country||'').toLowerCase();if(c.includes('Ð³ÐµÑÐ¼')||c.includes('germany'))return'ð©ðª';if(c.includes('Ð½Ð¸Ð´ÐµÑ')||c.includes('nether'))return'ð³ð±';if(c.includes('ÑÑÐ°')||c.includes('usa')||c.includes('america'))return'ðºð¸';if(c.includes('ÑÐ¿Ð¾Ð½')||c.includes('japan'))return'ð¯ðµ';if(c.includes('ÑÐ¸Ð½Ð³Ð°Ð¿')||c.includes('singapore'))return'ð¸ð¬';if(c.includes('ÑÑÐ°Ð½Ñ')||c.includes('france'))return'ð«ð·';if(c.includes('ÑÐ¾ÑÑ')||c.includes('russia'))return'ð·ðº';return'ð';}
-function shortContent(s){s=String(s||'');return s.length>65?s.slice(0,62)+'â¦':s;}
-function view(name){const names=['keys','subs','favorites','history','add','import','settings'];names.forEach(n=>{const el=$(n+'View');if(el)el.classList.toggle('hidden',n!==name);});document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));if(name==='keys'||name==='favorites'||name==='history'){$('keysView').classList.toggle('hidden',name!=='keys');if(name!=='keys'){const el=$(name+'View');if(el)el.classList.remove('hidden');}}}
-async function copyText(text){try{await navigator.clipboard.writeText(text);toast('Ð¡ÐºÐ¾Ð¿Ð¸ÑÐ¾Ð²Ð°Ð½Ð¾ Ð² Ð±ÑÑÐµÑ Ð¾Ð±Ð¼ÐµÐ½Ð°');}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Ð¡ÐºÐ¾Ð¿Ð¸ÑÐ¾Ð²Ð°Ð½Ð¾');}}
-function saveConfig(){let content=$('cfgContent').value.trim();if(!content){toast('Ð¡Ð½Ð°ÑÐ°Ð»Ð° Ð²ÑÑÐ°Ð²Ñ ÐºÐ»ÑÑ Ð¸Ð»Ð¸ ÑÑÑÐ»ÐºÑ');return;}let chosen=$('cfgProtocol').value;let proto=chosen==='auto'?detectProtocol(content):chosen;let name=$('cfgName').value.trim()||proto+' '+(state.configs.length+1);state.configs.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,protocol:proto,country:$('cfgCountry').value.trim(),content,favorite:false,created:Date.now()});addHistory('ÐÐ¾Ð±Ð°Ð²Ð»ÐµÐ½Ð° ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ñ: '+name);persist();render();$('cfgName').value='';$('cfgCountry').value='';$('cfgContent').value='';view('keys');toast('ÐÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ñ ÑÐ¾ÑÑÐ°Ð½ÐµÐ½Ð°');}
-function parseLines(text){let lines=String(text||'').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);let out=[];for(const line of lines){let l=line.replace(/^["']|["']$/g,'');if(/^(vless|vmess|trojan|ss|wireguard|awg|hysteria2|hy2|tuic):\/\//i.test(l)||/^https?:\/\//i.test(l)||/^\[Interface\]/i.test(l)){let item=configFrom(l,'ÐÐ¼Ð¿Ð¾ÑÑ');if(item)out.push(item);}}return out;}
-async function importText(text){const items=parseLines(text);if(!items.length){toast('ÐÐ»ÑÑÐ¸ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ñ. ÐÐ¾Ð¶Ð½Ð¾ ÑÐ¾ÑÑÐ°Ð½Ð¸ÑÑ ÑÑÑÐ»ÐºÑ ÐºÐ°Ðº Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÑ.');return;}state.configs.unshift(...items);addHistory('ÐÐ¼Ð¿Ð¾ÑÑÐ¸ÑÐ¾Ð²Ð°Ð½Ð¾ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¹: '+items.length);persist();render();$('importResult').textContent='ÐÐ°Ð¹Ð´ÐµÐ½Ð¾ Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¾: '+items.length;toast('ÐÐ¼Ð¿Ð¾ÑÑÐ¸ÑÐ¾Ð²Ð°Ð½Ð¾: '+items.length+' ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¹');view('keys');}
-async function tryFetch(url){if(!url){toast('ÐÑÑÐ°Ð²Ñ ÑÑÑÐ»ÐºÑ');return;}try{toast('ÐÑÐ¾Ð±ÑÑ Ð·Ð°Ð³ÑÑÐ·Ð¸ÑÑ ÑÑÑÐ»ÐºÑâ¦');const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);const text=await r.text();$('importText').value=text;await importText(text);}catch(e){toast('ÐÑÐ°ÑÐ·ÐµÑ Ð½Ðµ ÑÐ¼Ð¾Ð³ Ð·Ð°Ð³ÑÑÐ·Ð¸ÑÑ ÑÑÑÐ»ÐºÑ (ÑÐ°ÑÑÐ¾ Ð¼ÐµÑÐ°ÐµÑ CORS). Ð¡Ð¾ÑÑÐ°Ð½Ð¸ ÐµÑ ÐºÐ°Ðº Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÑ Ð¸Ð»Ð¸ Ð¾ÑÐºÑÐ¾Ð¹ Ð¾ÑÐ´ÐµÐ»ÑÐ½Ð¾.');}}
-function saveSub(){const url=$('subUrl').value.trim();if(!url){toast('ÐÑÑÐ°Ð²Ñ ÑÑÑÐ»ÐºÑ');return;}let name=$('subName').value.trim()||'ÐÐ¾Ð´Ð¿Ð¸ÑÐºÐ° '+(state.subs.length+1);state.subs.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,url});addHistory('Ð¡Ð¾ÑÑÐ°Ð½ÐµÐ½Ð° ÑÑÑÐ»ÐºÐ°: '+name);persist();render();$('subName').value='';$('subUrl').value='';toast('Ð¡ÑÑÐ»ÐºÐ° ÑÐ¾ÑÑÐ°Ð½ÐµÐ½Ð°');}
-function download(name,content,type='application/json'){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
-function exportBackup(){download('ultra-vpn-backup.json',JSON.stringify(state,null,2));toast('Ð ÐµÐ·ÐµÑÐ²Ð½Ð°Ñ ÐºÐ¾Ð¿Ð¸Ñ Ð¿Ð¾Ð´Ð³Ð¾ÑÐ¾Ð²Ð»ÐµÐ½Ð°');}
-document.addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)view(b.dataset.view);const a=e.target.closest('[data-action]');if(a){const c=state.configs.find(x=>x.id===a.dataset.id);if(!c)return;switch(a.dataset.action){case'copy':copyText(c.content);break;case'show':prompt('ÐÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ñ: '+c.name,c.content);break;case'rename':{const n=prompt('ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ',c.name);if(n!==null&&n.trim())c.name=n.trim();const co=prompt('Ð¡ÑÑÐ°Ð½Ð° (Ð¼Ð¾Ð¶Ð½Ð¾ Ð¾ÑÑÐ°Ð²Ð¸ÑÑ Ð¿ÑÑÑÐ¾Ð¹)',c.country||'');if(co!==null)c.country=co.trim();persist();render();break;}case'delete':if(confirm('Ð£Ð´Ð°Ð»Ð¸ÑÑ '+c.name+'?')){state.configs=state.configs.filter(x=>x.id!==c.id);addHistory('Ð£Ð´Ð°Ð»ÐµÐ½Ð° ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ñ: '+c.name);persist();render();}break;case'fav':c.favorite=!c.favorite;persist();render();break;}}
-const s=e.target.closest('[data-subaction]');if(s){const item=state.subs.find(x=>x.id===s.dataset.id);if(!item)return;if(s.dataset.subaction==='open')window.open(item.url,'_blank','noopener');if(s.dataset.subaction==='copy')copyText(item.url);if(s.dataset.subaction==='fetch'){$('importUrl').value=item.url;view('import');tryFetch(item.url);}if(s.dataset.subaction==='delete'&&confirm('Ð£Ð´Ð°Ð»Ð¸ÑÑ ÑÑÑÐ»ÐºÑ?')){state.subs=state.subs.filter(x=>x.id!==item.id);persist();render();}}});
-$('saveCfg').onclick=saveConfig;$('detectBtn').onclick=()=>{const p=detectProtocol($('cfgContent').value);$('cfgProtocol').value=p;toast('ÐÐ¿ÑÐµÐ´ÐµÐ»ÐµÐ½Ð¾: '+p);};$('clearCfg').onclick=()=>{$('cfgName').value='';$('cfgCountry').value='';$('cfgContent').value='';};
-$('saveSub').onclick=saveSub;$('search').oninput=render;$('protocolFilter').onchange=render;$('sort').onchange=render;
-$('fetchBtn').onclick=()=>tryFetch($('importUrl').value.trim());$('openUrlBtn').onclick=()=>{const u=$('importUrl').value.trim();if(u)window.open(u,'_blank','noopener');else toast('ÐÑÑÐ°Ð²Ñ ÑÑÑÐ»ÐºÑ');};$('parseBtn').onclick=()=>importText($('importText').value);
-$('fileInput').onchange=async e=>{const f=e.target.files[0];if(f){$('importText').value=await f.text();toast('Ð¤Ð°Ð¹Ð» Ð·Ð°Ð³ÑÑÐ¶ÐµÐ½. ÐÐ°Ð¶Ð¼Ð¸ Â«ÐÐ°Ð¹ÑÐ¸ Ð¸ Ð¸Ð¼Ð¿Ð¾ÑÑÐ¸ÑÐ¾Ð²Ð°ÑÑ ÐºÐ»ÑÑÐ¸Â»');}};
-$('backupInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(Array.isArray(data.configs)&&Array.isArray(data.subs)){if(confirm('ÐÐ°Ð¼ÐµÐ½Ð¸ÑÑ ÑÐµÐºÑÑÐ¸Ðµ Ð´Ð°Ð½Ð½ÑÐµ ÑÐµÐ·ÐµÑÐ²Ð½Ð¾Ð¹ ÐºÐ¾Ð¿Ð¸ÐµÐ¹?'))state={...state,...data};persist();render();toast('Ð ÐµÐ·ÐµÑÐ²Ð½Ð°Ñ ÐºÐ¾Ð¿Ð¸Ñ Ð¸Ð¼Ð¿Ð¾ÑÑÐ¸ÑÐ¾Ð²Ð°Ð½Ð°');}else toast('ÐÐµÐ²ÐµÑÐ½ÑÐ¹ ÑÐ¾ÑÐ¼Ð°Ñ ÑÐµÐ·ÐµÑÐ²Ð½Ð¾Ð¹ ÐºÐ¾Ð¿Ð¸Ð¸');}catch(err){toast('ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ Ð¿ÑÐ¾ÑÐ¸ÑÐ°ÑÑ JSON');}};
-$('downloadBackup').onclick=exportBackup;$('exportBtn').onclick=exportBackup;$('clearAllBtn').onclick=()=>{if(confirm('Ð¢Ð¾ÑÐ½Ð¾ ÑÐ´Ð°Ð»Ð¸ÑÑ Ð²ÑÐµ ÐºÐ»ÑÑÐ¸, Ð¿Ð¾Ð´Ð¿Ð¸ÑÐºÐ¸ Ð¸ Ð¸ÑÑÐ¾ÑÐ¸Ñ?')){state={configs:[],subs:[],history:[]};persist();render();toast('ÐÑÐµ Ð´Ð°Ð½Ð½ÑÐµ ÑÐ´Ð°Ð»ÐµÐ½Ñ');}};
-$('goImport').onclick=()=>view('import');$('settingsBtn').onclick=()=>view('settings');$('themeBtn').onclick=()=>toast('ÐÐµÐ¾Ð½Ð¾Ð²Ð°Ñ ÑÐµÐ¼Ð° ÑÐ¶Ðµ Ð²ÐºÐ»ÑÑÐµÐ½Ð°');$('connectBtn').onclick=()=>toast('ÐÐ¾Ð´ÐºÐ»ÑÑÐµÐ½Ð¸Ðµ Ð²ÑÐ¿Ð¾Ð»Ð½ÑÐµÑÑÑ Ð² VPN-ÐºÐ»Ð¸ÐµÐ½ÑÐµ, Ð½Ðµ Ð½Ð° ÑÑÐ¾Ð¼ ÑÐ°Ð¹ÑÐµ.');
-render();view('keys');
+
+let toastTimer;
+
+function toast(message) {
+  const el = $('toast');
+  el.textContent = message;
+  el.classList.remove('hidden');
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    el.classList.add('hidden');
+  }, 2800);
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function detectProtocol(content) {
+  const s = String(content || '').trim();
+
+  if (/^vless:\/\//i.test(s)) return 'VLESS';
+  if (/^vmess:\/\//i.test(s)) return 'VMess';
+  if (/^trojan:\/\//i.test(s)) return 'Trojan';
+  if (/^(ss|shadowsocks):\/\//i.test(s)) return 'Shadowsocks';
+  if (/^wireguard:\/\//i.test(s)) return 'WireGuard';
+  if (/^awg:\/\//i.test(s)) return 'AmneziaWG';
+  if (/^(hysteria2|hy2):\/\//i.test(s)) return 'Hysteria2';
+  if (/^tuic:\/\//i.test(s)) return 'TUIC';
+  if (/^\[Interface\]/i.test(s)) return 'WireGuard';
+  if (/^https?:\/\//i.test(s)) return 'Другая ссылка';
+
+  return 'Другая ссылка';
+}
+
+function addHistory(text) {
+  state.history.unshift({
+    text,
+    at: new Date().toLocaleString('ru-RU')
+  });
+
+  state.history = state.history.slice(0, 50);
+}
+
+function configFrom(line, baseName = 'Импорт') {
+  const content = line.trim();
+
+  if (!content) return null;
+
+  const protocol = detectProtocol(content);
+
+  if (
+    protocol === 'Другая ссылка' &&
+    !/^https?:\/\//i.test(content) &&
+    !content.startsWith('[Interface]') &&
+    !content.includes('://')
+  ) {
+    return null;
+  }
+
+  return {
+    id: crypto.randomUUID
+      ? crypto.randomUUID()
+      : String(Date.now() + Math.random()),
+    name: baseName + ' ' + (state.configs.length + 1),
+    protocol,
+    country: '',
+    content,
+    favorite: false,
+    created: Date.now()
+  };
+}
+
+function flagFor(country) {
+  const c = String(country || '').toLowerCase();
+
+  if (c.includes('герм') || c.includes('germany')) return '🇩🇪';
+  if (c.includes('нидер') || c.includes('nether')) return '🇳🇱';
+  if (c.includes('сша') || c.includes('usa') || c.includes('america')) return '🇺🇸';
+  if (c.includes('япон') || c.includes('japan')) return '🇯🇵';
+  if (c.includes('сингап') || c.includes('singapore')) return '🇸🇬';
+  if (c.includes('франц') || c.includes('france')) return '🇫🇷';
+  if (c.includes('росс') || c.includes('russia')) return '🇷🇺';
+  if (c.includes('финл') || c.includes('finland')) return '🇫🇮';
+  if (c.includes('турц') || c.includes('turkey')) return '🇹🇷';
+  if (c.includes('исп') || c.includes('spain')) return '🇪🇸';
+
+  return '🌐';
+}
+
+function shortContent(content) {
+  const s = String(content || '');
+  return s.length > 65 ? s.slice(0, 62) + '…' : s;
+}
+
+function render() {
+  const q = $('search').value.trim().toLowerCase();
+  const protocolFilter = $('protocolFilter').value;
+  const sort = $('sort').value;
+
+  let list = state.configs.filter(c =>
+    (!q || [c.name, c.protocol, c.country, c.content]
+      .some(x => String(x || '').toLowerCase().includes(q))) &&
+    (!protocolFilter || c.protocol === protocolFilter)
+  );
+
+  list.sort((a, b) => {
+    if (sort === 'name') {
+      return a.name.localeCompare(b.name);
+    }
+
+    return String(a[sort] || '').localeCompare(String(b[sort] || ''));
+  });
+
+  $('metricKeys').textContent = state.configs.length + ' ключей';
+  $('metricSubs').textContent = state.subs.length + ' сохранено';
+  $('metricProtocols').textContent =
+    new Set(state.configs.map(c => c.protocol)).size + ' типов';
+
+  $('serverList').innerHTML = list.length
+    ? list.map(c => `
+      <article class="server">
+        <div class="flag">${flagFor(c.country)}</div>
+        <div>
+          <h3>${escapeHtml(c.name)}</h3>
+          <div class="meta">
+            <span class="tag">${escapeHtml(c.protocol)}</span>
+            ${escapeHtml(c.country || 'Страна не указана')}
+            <br>${escapeHtml(shortContent(c.content))}
+          </div>
+          <div class="btnrow">
+            <button class="smallbtn" data-action="copy" data-id="${c.id}">Копировать</button>
+            <button class="smallbtn" data-action="show" data-id="${c.id}">Показать</button>
+            <button class="smallbtn" data-action="rename" data-id="${c.id}">Изменить</button>
+            <button class="danger" data-action="delete" data-id="${c.id}">Удалить</button>
+          </div>
+        </div>
+        <button class="fav" data-action="fav" data-id="${c.id}">
+          ${c.favorite ? '★' : '☆'}
+        </button>
+      </article>
+    `).join('')
+    : '<div class="empty">Пока нет конфигураций.<br>Нажми «Добавить» или импортируй ссылку.</div>';
+
+  $('subList').innerHTML = state.subs.length
+    ? state.subs.map(s => `
+      <div class="subitem">
+        <b>${escapeHtml(s.name)}</b>
+        <p class="meta">${escapeHtml(s.url)}</p>
+        <div class="btnrow">
+          <button class="smallbtn" data-subaction="open" data-id="${s.id}">Открыть</button>
+          <button class="smallbtn" data-subaction="copy" data-id="${s.id}">Копировать</button>
+          <button class="smallbtn" data-subaction="fetch" data-id="${s.id}">Попробовать импорт</button>
+          <button class="danger" data-subaction="delete" data-id="${s.id}">Удалить</button>
+        </div>
+      </div>
+    `).join('')
+    : '<div class="empty">Нет сохранённых подписок.</div>';
+
+  $('favList').innerHTML = state.configs
+    .filter(c => c.favorite)
+    .map(c => `
+      <div class="subitem">
+        <b>${escapeHtml(c.name)}</b>
+        <p>${escapeHtml(c.protocol)} · ${escapeHtml(c.country)}</p>
+        <button class="smallbtn" data-action="copy" data-id="${c.id}">Копировать</button>
+      </div>
+    `).join('') || '<div class="empty">Добавь сервер в избранное кнопкой ☆.</div>';
+
+  $('historyList').innerHTML = state.history
+    .map(h => `
+      <div class="historyitem">
+        <b>${escapeHtml(h.text)}</b>
+        <p class="meta">${escapeHtml(h.at)}</p>
+      </div>
+    `).join('') || '<div class="empty">Действий пока нет.</div>';
+}
+
+function view(name) {
+  const names = ['keys', 'subs', 'favorites', 'history', 'add', 'import', 'settings'];
+
+  names.forEach(n => {
+    const el = $(n + 'View');
+    if (el) el.classList.toggle('hidden', n !== name);
+  });
+
+  $('keysView').classList.toggle('hidden', name !== 'keys');
+
+  document.querySelectorAll('[data-view]').forEach(button => {
+    button.classList.toggle('active', button.dataset.view === name);
+  });
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('Скопировано в буфер обмена');
+  } catch (e) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+    toast('Скопировано');
+  }
+}
+
+function saveConfig() {
+  const content = $('cfgContent').value.trim();
+
+  if (!content) {
+    toast('Сначала вставь ключ или ссылку');
+    return;
+  }
+
+  const selected = $('cfgProtocol').value;
+  const protocol = selected === 'auto'
+    ? detectProtocol(content)
+    : selected;
+
+  const name = $('cfgName').value.trim() ||
+    protocol + ' ' + (state.configs.length + 1);
+
+  state.configs.unshift({
+    id: crypto.randomUUID
+      ? crypto.randomUUID()
+      : String(Date.now()),
+    name,
+    protocol,
+    country: $('cfgCountry').value.trim(),
+    content,
+    favorite: false,
+    created: Date.now()
+  });
+
+  addHistory('Добавлена конфигурация: ' + name);
+  persist();
+  render();
+
+  $('cfgName').value = '';
+  $('cfgCountry').value = '';
+  $('cfgContent').value = '';
+
+  view('keys');
+  toast('Конфигурация сохранена');
+}
+
+function parseLines(text) {
+  const lines = String(text || '')
+    .split(/\r?\n/)
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  const results = [];
+
+  for (const line of lines) {
+    const value = line.replace(/^["']|["']$/g, '');
+
+    if (
+      /^(vless|vmess|trojan|ss|shadowsocks|wireguard|awg|hysteria2|hy2|tuic):\/\//i.test(value) ||
+      /^https?:\/\//i.test(value) ||
+      /^\[Interface\]/i.test(value)
+    ) {
+      const item = configFrom(value, 'Импорт');
+      if (item) results.push(item);
+    }
+  }
+
+  return results;
+}
 </script>
-</body></html>
+<script>
+document.querySelectorAll('[data-view]').forEach(button => {
+  button.addEventListener('click', () => view(button.dataset.view));
+});
+
+$('search').addEventListener('input', render);
+$('protocolFilter').addEventListener('change', render);
+$('sort').addEventListener('change', render);
+
+$('saveCfg').addEventListener('click', saveConfig);
+
+$('detectBtn').addEventListener('click', () => {
+  const content = $('cfgContent').value.trim();
+  if (!content) {
+    toast('Сначала вставь ключ или ссылку');
+    return;
+  }
+
+  const protocol = detectProtocol(content);
+  $('cfgProtocol').value = protocol;
+  toast('Определён протокол: ' + protocol);
+});
+
+$('clearCfg').addEventListener('click', () => {
+  $('cfgName').value = '';
+  $('cfgCountry').value = '';
+  $('cfgContent').value = '';
+  $('cfgProtocol').value = 'auto';
+});
+
+$('connectBtn').addEventListener('click', () => {
+  toast('Для подключения открой ключ в совместимом VPN-клиенте');
+});
+
+$('saveSub').addEventListener('click', () => {
+  const url = $('subUrl').value.trim();
+  const name = $('subName').value.trim() || 'Подписка ' + (state.subs.length + 1);
+
+  if (!url) {
+    toast('Вставь ссылку на подписку');
+    return;
+  }
+
+  state.subs.unshift({
+    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    name,
+    url
+  });
+
+  addHistory('Сохранена подписка: ' + name);
+  persist();
+  render();
+
+  $('subName').value = '';
+  $('subUrl').value = '';
+  toast('Подписка сохранена');
+});
+
+$('serverList').addEventListener('click', async event => {
+  const button = event.target.closest('[data-action]');
+  if (!button) return;
+
+  const item = state.configs.find(c => c.id === button.dataset.id);
+  if (!item) return;
+
+  const action = button.dataset.action;
+
+  if (action === 'copy') {
+    await copyText(item.content);
+  }
+
+  if (action === 'show') {
+    alert(item.name + '\n\nПротокол: ' + item.protocol + '\n\n' + item.content);
+  }
+
+  if (action === 'rename') {
+    const name = prompt('Новое название:', item.name);
+    if (name && name.trim()) {
+      item.name = name.trim();
+      addHistory('Изменено название: ' + item.name);
+      persist();
+      render();
+      toast('Название изменено');
+    }
+  }
+
+  if (action === 'delete') {
+    if (confirm('Удалить конфигурацию «' + item.name + '»?')) {
+      state.configs = state.configs.filter(c => c.id !== item.id);
+      addHistory('Удалена конфигурация: ' + item.name);
+      persist();
+      render();
+      toast('Конфигурация удалена');
+    }
+  }
+
+  if (action === 'fav') {
+    item.favorite = !item.favorite;
+    persist();
+    render();
+    toast(item.favorite ? 'Добавлено в избранное' : 'Удалено из избранного');
+  }
+});
+
+$('subList').addEventListener('click', async event => {
+  const button = event.target.closest('[data-subaction]');
+  if (!button) return;
+
+  const item = state.subs.find(s => s.id === button.dataset.id);
+  if (!item) return;
+
+  const action = button.dataset.subaction;
+
+  if (action === 'open') {
+    window.open(item.url, '_blank', 'noopener,noreferrer');
+  }
+
+  if (action === 'copy') {
+    await copyText(item.url);
+  }
+
+  if (action === 'fetch') {
+    $('importUrl').value = item.url;
+    view('import');
+    await fetchSubscription(item.url);
+  }
+
+  if (action === 'delete') {
+    if (confirm('Удалить эту подписку?')) {
+      state.subs = state.subs.filter(s => s.id !== item.id);
+      persist();
+      render();
+      toast('Подписка удалена');
+    }
+  }
+});
+
+async function fetchSubscription(url) {
+  $('importResult').textContent = 'Загружаю ссылку…';
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+
+    const text = await response.text();
+    $('importText').value = text;
+
+    const found = parseLines(text);
+
+    if (found.length) {
+      state.configs.unshift(...found);
+      addHistory('Импортировано конфигураций: ' + found.length);
+      persist();
+      render();
+      $('importResult').textContent = 'Импортировано конфигураций: ' + found.length;
+      toast('Импорт завершён');
+    } else {
+      $('importResult').textContent = 'Содержимое загружено, но ключи не найдены. Проверь формат файла.';
+    }
+  } catch (error) {
+    $('importResult').textContent =
+      'Не удалось загрузить ссылку из браузера. Возможно, сайт запрещает такой доступ (CORS). Попробуй открыть ссылку отдельно или импортировать файл.';
+  }
+}
+
+$('fetchBtn').addEventListener('click', () => {
+  const url = $('importUrl').value.trim();
+
+  if (!url) {
+    toast('Вставь ссылку');
+    return;
+  }
+
+  fetchSubscription(url);
+});
+
+$('openUrlBtn').addEventListener('click', () => {
+  const url = $('importUrl').value.trim();
+
+  if (!/^https?:\/\//i.test(url)) {
+    toast('Вставь ссылку, начинающуюся с https:// или http://');
+    return;
+  }
+
+  window.open(url, '_blank', 'noopener,noreferrer');
+});
+
+$('fileInput').addEventListener('change', async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  $('importText').value = await file.text();
+  $('importResult').textContent = 'Файл открыт: ' + file.name;
+  toast('Файл загружен');
+});
+
+$('parseBtn').addEventListener('click', () => {
+  const text = $('importText').value.trim();
+
+  if (!text) {
+    toast('Вставь текст или выбери файл');
+    return;
+  }
+
+  const found = parseLines(text);
+
+  if (!found.length) {
+    $('importResult').textContent =
+      'Ключи не найдены. Проверь, что в тексте есть ссылки VLESS, VMess, Trojan, Shadowsocks или другие поддерживаемые форматы.';
+    return;
+  }
+
+  state.configs.unshift(...found);
+  addHistory('Импортировано конфигураций: ' + found.length);
+  persist();
+  render();
+
+  $('importResult').textContent = 'Добавлено конфигураций: ' + found.length;
+  toast('Импорт завершён');
+});
+
+function downloadJSON() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {
+    type: 'application/json;charset=utf-8'
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+
+  a.href = url;
+  a.download = 'ultra-vpn-backup.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+  toast('Резервная копия подготовлена');
+}
+
+$('downloadBackup').addEventListener('click', downloadJSON);
+$('exportBtn').addEventListener('click', downloadJSON);
+
+$('backupInput').addEventListener('change', async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  try {
+    const data = JSON.parse(await file.text());
+
+    if (!Array.isArray(data.configs) || !Array.isArray(data.subs)) {
+      throw new Error('Неверный формат резервной копии');
+    }
+
+    if (!confirm('Заменить текущие данные данными из резервной копии?')) return;
+
+    state = {
+      configs: data.configs,
+      subs: data.subs,
+      history: Array.isArray(data.history) ? data.history : []
+    };
+
+    persist();
+    render();
+    toast('Резервная копия восстановлена');
+  } catch (error) {
+    toast('Не удалось прочитать резервную копию');
+  }
+
+  event.target.value = '';
+});
+
+$('clearAllBtn').addEventListener('click', () => {
+  if (!confirm('Точно удалить все ключи, подписки и историю? Это действие нельзя отменить.')) return;
+
+  state = {
+    configs: [],
+    subs: [],
+    history: []
+  };
+
+  persist();
+  render();
+  toast('Данные удалены');
+  view('keys');
+});
+
+$('settingsBtn').addEventListener('click', () => view('settings'));
+
+$('themeBtn').addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+
+  const light = document.body.classList.contains('light-mode');
+
+  if (light) {
+    document.body.style.background = '#edf3ff';
+    document.body.style.color = '#15213a';
+    toast('Светлая тема включена');
+  } else {
+    document.body.style.background = '';
+    document.body.style.color = '';
+    toast('Тёмная тема включена');
+  }
+});
+
+$('goImport').addEventListener('click', () => view('import'));
+
+render();
+view('keys');
+</script>
+</body>
+</html>
